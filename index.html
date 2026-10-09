@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Où faire mon stage dans le monde ?</title>
+<style>
+:root{--bg:#f7f6f2;--card:#fff;--tx:#1d2330;--mu:#6b7280;--ac:#2354d6;--ac2:#e8eefc;--bd:#e3e1da;--ok:#16794c;--wa:#b45309;--ko:#b42318;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12151c;--card:#1b2030;--tx:#eceef4;--mu:#9aa3b5;--ac:#7ea2ff;--ac2:#232c47;--bd:#2c3348;--ok:#4ade9a;--wa:#fbbf56;--ko:#ff8a80}}
+:root[data-theme="dark"]{--bg:#12151c;--card:#1b2030;--tx:#eceef4;--mu:#9aa3b5;--ac:#7ea2ff;--ac2:#232c47;--bd:#2c3348;--ok:#4ade9a;--wa:#fbbf56;--ko:#ff8a80}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:640px;margin:0 auto;padding:20px 16px 40px}
+h1{font-size:1.4rem;margin:0 0 4px}h2{font-size:1.15rem;margin:8px 0 14px;line-height:1.35}
+.mu{color:var(--mu);font-size:.9rem}.bar{height:6px;background:var(--bd);border-radius:9px;overflow:hidden;margin:12px 0 18px}.bar i{display:block;height:100%;background:var(--ac);transition:width .3s}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:18px;margin-bottom:12px}
+.blk{display:inline-block;font-size:.75rem;font-weight:600;color:var(--ac);background:var(--ac2);padding:3px 10px;border-radius:99px;margin-bottom:6px}
+.opt{display:block;width:100%;text-align:left;padding:12px 14px;margin:8px 0;border:1.5px solid var(--bd);background:var(--card);color:var(--tx);border-radius:10px;font:inherit;cursor:pointer}
+.opt.on{border-color:var(--ac);background:var(--ac2);font-weight:600}
+.row{display:flex;gap:10px;margin-top:16px}.btn{flex:1;padding:12px;border-radius:10px;border:1.5px solid var(--ac);background:var(--ac);color:#fff;font:600 1rem system-ui;cursor:pointer}.btn.g{background:transparent;color:var(--ac)}.btn:disabled{opacity:.4}
+select,input[type=text]{width:100%;padding:11px;border-radius:10px;border:1.5px solid var(--bd);background:var(--card);color:var(--tx);font:inherit}
+.lg{display:flex;align-items:center;gap:10px;margin:8px 0}.lg b{width:90px}
+input[type=range]{width:100%;accent-color:var(--ac)}.big{font-size:2rem;font-weight:700;color:var(--ac);text-align:center}.sc{display:flex;justify-content:space-between;font-size:.78rem;color:var(--mu)}
+.pc{height:10px;background:var(--bd);border-radius:9px;overflow:hidden;margin:6px 0 10px}.pc i{display:block;height:100%;background:var(--ac)}
+.top{display:flex;justify-content:space-between;align-items:baseline;font-weight:700;font-size:1.1rem}
+ul{margin:4px 0 4px 18px;padding:0;font-size:.9rem}.ok{color:var(--ok)}.wa{color:var(--wa)}.ko{color:var(--ko)}
+details{margin-top:10px}summary{cursor:pointer;color:var(--ac);font-weight:600}.li{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--bd);font-size:.9rem}
+</style></head><body><main id="app"></main>
+<script>
+// metrics: 0 coste bajo,1 cercanía FR,2 alojamiento,3 sol,4 calor,5 gastro,6 ocio,7 seguridad,8 mujeres,9 LGTBIQ+,10 estabilidad,11 diversidad,12 inglés laboral,13 remuneración,14 empleo ingeniería,15 capital,16 universitaria,17 costa/naturaleza,18 startup,19 multinacional,20 público/investigación
+const C=[
+["BE","Belgique","🇧🇪",["fr","nl"],[5,10,5,4,5,8,7,6,7,9,7,8,7,6,7,8,7,3,6,8,8]],
+["LU","Luxembourg","🇱🇺",["fr","de"],[3,9,4,4,5,7,5,8,7,8,9,9,8,10,6,6,3,4,5,9,6]],
+["DE","Allemagne","🇩🇪",["de"],[5,8,4,4,4,6,7,7,7,8,8,7,6,8,10,8,8,4,7,10,8]],
+["NL","Pays-Bas","🇳🇱",["nl"],[3,7,2,4,4,6,8,7,8,10,9,8,10,8,9,8,8,4,8,9,8]],
+["CH","Suisse","🇨🇭",["de","fr","it"],[1,8,3,5,5,7,5,9,7,8,10,8,6,10,9,6,6,8,7,9,10]],
+["AT","Autriche","🇦🇹",["de"],[4,7,4,5,4,7,6,8,7,8,8,7,5,8,8,7,8,6,6,8,7]],
+["IT","Italie","🇮🇹",["it"],[5,9,5,8,8,10,7,6,6,5,5,6,4,3,7,7,8,7,5,7,6]],
+["ES","Espagne","🇪🇸",["es"],[6,9,5,10,9,9,10,7,7,9,7,7,4,3,6,8,8,8,6,7,6]],
+["PT","Portugal","🇵🇹",["pt"],[6,8,6,10,9,9,8,9,7,8,8,7,6,3,6,7,7,9,8,6,5]],
+["IE","Irlande","🇮🇪",["en"],[2,7,1,4,5,6,8,8,7,9,9,8,10,8,8,8,6,6,8,10,7]],
+["DK","Danemark","🇩🇰",[],[2,7,4,3,3,6,6,9,9,10,10,7,9,9,8,7,7,5,7,8,9]],
+["SE","Suède","🇸🇪",[],[3,6,3,3,3,6,6,8,10,10,10,7,9,8,9,7,8,6,8,9,9]],
+["FI","Finlande","🇫🇮",[],[4,6,5,2,2,5,5,9,9,9,10,6,9,8,9,6,8,7,8,8,9]],
+["NO","Norvège","🇳🇴",[],[2,6,3,3,3,6,6,9,10,10,10,7,9,10,8,6,6,9,6,8,9]],
+["IS","Islande","🇮🇸",[],[1,5,2,3,3,5,6,10,10,10,10,6,9,9,6,5,3,10,6,5,8]],
+["PL","Pologne","🇵🇱",[],[8,7,7,5,5,6,7,8,5,3,6,4,6,4,7,7,8,5,7,8,6]],
+["CZ","Tchéquie","🇨🇿",[],[7,7,6,5,5,6,8,8,6,5,7,5,6,5,8,7,7,5,7,9,7]],
+["SK","Slovaquie","🇸🇰",[],[7,7,6,5,5,5,6,8,5,3,6,4,5,4,6,5,6,6,5,8,5]],
+["HU","Hongrie","🇭🇺",[],[7,7,6,6,6,6,7,7,4,2,5,4,5,4,6,7,6,5,6,8,6]],
+["SI","Slovénie","🇸🇮",[],[6,8,6,6,6,6,6,10,7,6,8,5,6,5,6,5,7,8,5,7,6]],
+["HR","Croatie","🇭🇷",[],[6,8,5,8,8,7,7,8,6,6,6,4,6,3,5,5,6,9,5,6,5]],
+["RO","Roumanie","🇷🇴",[],[8,5,7,6,6,6,7,7,5,2,5,4,6,4,7,7,7,6,8,9,5]],
+["BG","Bulgarie","🇧🇬",[],[9,5,8,6,6,6,7,6,5,2,4,4,5,3,5,6,5,6,7,7,4]],
+["GR","Grèce","🇬🇷",[],[6,7,5,10,9,9,8,6,6,6,4,5,5,2,4,7,6,10,4,5,4]],
+["CY","Chypre","🇨🇾",[],[5,5,5,10,10,7,8,7,6,5,6,6,8,3,4,5,5,8,4,5,4]],
+["MT","Malte","🇲🇹",["en"],[5,7,4,10,10,7,9,7,6,9,6,7,10,3,4,5,3,9,4,6,3]],
+["EE","Estonie","🇪🇪",[],[6,6,6,3,3,5,6,9,7,7,8,5,9,6,7,6,7,6,10,6,7]],
+["LV","Lettonie","🇱🇻",[],[7,6,6,3,3,5,6,7,6,5,6,4,7,4,6,6,5,6,8,5,5]],
+["LT","Lituanie","🇱🇹",[],[7,6,6,4,4,5,7,8,6,5,7,5,8,4,7,6,6,6,8,6,6]],
+["GB","Royaume-Uni","🇬🇧",["en"],[2,10,1,3,4,6,9,7,7,9,7,8,10,6,9,9,9,5,8,10,9]],
+["TR","Turquie","🇹🇷",[],[8,5,6,8,8,8,8,5,3,2,3,5,4,3,5,7,6,8,6,7,5]],
+["CA","Canada","🇨🇦",["en","fr"],[3,3,3,3,2,7,7,8,8,9,9,10,10,7,8,7,8,10,8,9,8]],
+["US","États-Unis","🇺🇸",["en"],[2,3,2,6,6,6,8,5,5,6,5,9,10,7,10,8,8,8,10,10,10]],
+["MX","Mexique","🇲🇽",["es"],[7,2,6,8,7,8,8,3,4,6,4,6,4,4,6,8,7,8,6,7,5]],
+["BR","Brésil","🇧🇷",["pt"],[7,2,5,9,10,7,9,3,4,6,4,7,3,3,5,7,6,9,7,7,5]],
+["AR","Argentine","🇦🇷",["es"],[7,2,5,7,6,7,9,4,6,8,3,6,4,3,5,8,7,8,6,6,5]],
+["CL","Chili","🇨🇱",["es"],[6,2,5,7,6,6,7,5,5,7,5,5,4,4,5,7,6,9,7,7,6]],
+["CO","Colombie","🇨🇴",["es"],[7,2,6,7,8,7,9,3,4,5,4,6,4,3,5,7,6,8,7,7,5]],
+["JP","Japon","🇯🇵",["ja"],[4,1,4,6,5,8,7,10,5,4,9,4,3,6,10,9,7,6,5,10,10]],
+["KR","Corée du Sud","🇰🇷",["ko"],[5,1,4,6,5,7,9,9,4,3,7,3,4,6,9,9,8,5,8,10,9]],
+["CN","Chine","🇨🇳",["zh"],[6,1,5,6,6,8,7,7,5,2,6,5,4,6,9,9,7,7,6,10,8]],
+["TW","Taïwan","🇹🇼",["zh"],[6,1,6,8,8,8,8,9,6,9,6,4,4,5,9,8,7,8,8,9,8]],
+["SG","Singapour","🇸🇬",["en"],[1,1,2,9,10,9,8,10,8,3,10,9,10,9,9,8,8,4,9,10,9]],
+["IN","Inde","🇮🇳",["en"],[9,2,6,8,9,7,6,4,2,3,5,6,6,3,8,8,7,7,9,9,6]],
+["VN","Vietnam","🇻🇳",[],[9,1,7,8,9,8,8,6,5,5,7,4,4,3,6,6,5,8,8,8,3]],
+["TH","Thaïlande","🇹🇭",[],[8,1,7,9,10,8,9,6,5,8,5,6,5,3,5,8,5,10,6,7,4]],
+["MY","Malaisie","🇲🇾",["en"],[8,1,7,9,10,8,7,7,4,2,7,7,7,4,7,8,6,8,7,8,6]],
+["AU","Australia","🇦🇺",["en"],[2,0,1,8,7,7,8,8,8,9,9,10,10,8,8,6,7,10,8,9,8]],
+["NZ","Nouvelle-Zélande","🇳🇿",["en"],[3,0,2,6,5,6,6,10,9,10,10,9,10,7,7,5,7,10,7,7,7]],
+["MA","Maroc","🇲🇦",["ar","fr"],[8,8,6,9,9,8,6,6,3,1,7,5,4,3,6,6,6,8,5,7,5]],
+["TN","Tunisie","🇹🇳",["ar","fr"],[9,8,7,9,9,8,5,6,4,1,5,4,3,2,5,6,5,8,4,5,5]],
+["SN","Sénégal","🇸🇳",["fr"],[7,6,5,10,10,7,7,5,4,1,6,5,3,2,4,5,5,7,5,5,4]],
+["CI","Côte d'Ivoire","🇨🇮",["fr"],[7,5,5,9,10,7,7,4,4,2,5,5,3,3,5,5,4,6,5,6,4]],
+["ZA","Afrique du Sud","🇿🇦",["en"],[6,3,5,9,8,7,8,3,4,8,4,8,9,4,6,6,7,10,7,8,6]],
+["AE","Émirats arabes unis","🇦🇪",["ar","en"],[3,4,4,10,10,8,8,10,5,2,8,10,10,9,8,7,5,6,8,10,6]]];
+const X={};`BE:0,1,1,8,3,0;LU:0,1,1,9,2,0;DE:0,1.5,1,5,5,0;NL:0,1.5,1,4,4,0;CH:0,1.5,1,8,3,0;AT:0,2,1,3,4,0;IT:0,2,1,2,5,0;ES:0,2,1,3,6,0;PT:-1,2.5,1,3,4,0;IE:-1,2,1,3,3,0;DK:0,2,1,3,3,0;SE:0,3,1,3,3,0;FI:1,3.5,2,5,3,0;NO:0,2.5,1,3,3,0;IS:-1,3.5,2,2,1,0;PL:0,2,2,2,5,0;CZ:0,1.5,2,2,3,0;SK:0,2,2,2,2,0;HU:0,2,2,2,4,0;SI:0,1.5,2,3,1,0;HR:0,2,2,3,2,0;RO:1,3,3,3,4,0;BG:1,3,3,3,3,0;GR:1,3,3,3,4,0;CY:1,4,4,6,2,0;MT:0,2.5,2,8,2,0;EE:1,3,2,7,2,0;LV:1,3,2,7,2,0;LT:1,3,2,5,2,0;GB:-1,1.3,1,5,10,2;TR:2,3.5,5,4,10,1;CA:-6,8,2,7,8,1;US:-6,8.5,3,6,10,2;MX:-8,11,5,2,10,1;BR:-5,10.5,5,2,10,1;AR:-5,13,4,2,8,1;CL:-4,14,5,1,8,1;CO:-6,10.5,5,2,8,1;JP:8,12.5,8,3,10,2;KR:8,11.5,8,3,10,2;CN:6,10.5,9,3,10,2;TW:6,12.5,8,3,8,1;SG:6,13,5,10,6,2;IN:3.5,9,9,9,10,2;VN:5,12,8,2,8,2;TH:5,11.5,8,3,9,1;MY:6,13,7,8,6,1;AU:9,22,3,6,8,2;NZ:11,25,3,5,5,2;MA:-1,3,5,7,7,1;TN:0,3,5,6,5,1;SN:-1,6,6,6,7,1;CI:-1,7,6,6,8,1;ZA:0,11.5,5,10,8,1;AE:2,6.5,6,10,7,1`.split(';').forEach(t=>{const[k,v]=t.split(':');X[k]=v.split(',').map(Number)});
+const cl=v=>Math.max(0,Math.min(10,Math.round(v)));
+C.forEach(c=>{const m=c[4],x=X[c[0]];c.push(x);m[1]=cl(10-x[1]*.8);m[21]=cl(10-Math.abs(x[0])*1.2);m[22]=x[3];m[23]=[10,6,2][x[5]];m[24]=m[2];m[25]=cl((m[16]+m[2])/2);m[26]=cl(m[0]*.6+m[2]*.4+1);m[27]=x[2];m[28]=x[4]});
+const SCH='BE LU DE NL CH AT IT ES PT DK SE FI NO IS PL CZ SK HU SI HR RO BG GR MT EE LV LT';
+const mk=t=>{const o={};t.split(';').forEach(e=>{const[k,v]=e.split(':');o[k]=v});return o};
+const Y=mk(`BE:6,5,7;LU:5,6,7;DE:3,6,8;NL:8,2,8;CH:3,6,7;AT:4,7,7;IT:6,7,6;ES:7,6,5;PT:7,6,6;IE:7,4,6;DK:9,1,9;SE:9,1,9;FI:8,2,9;NO:9,1,9;IS:8,2,8;PL:5,7,5;CZ:6,6,6;SK:5,7,5;HU:5,7,5;SI:6,6,6;HR:6,6,6;RO:5,7,5;BG:5,7,5;GR:7,7,5;CY:7,7,5;MT:7,6,6;EE:7,3,6;LV:6,5,6;LT:6,5,6;GB:6,5,6;TR:6,8,4;CA:7,3,7;US:6,4,3;MX:6,7,4;BR:7,7,5;AR:7,7,5;CL:6,7,5;CO:6,7,5;JP:1,9,2;KR:2,9,2;CN:3,8,3;TW:4,7,4;SG:4,6,4;IN:5,8,3;VN:5,8,4;TH:6,8,5;MY:5,7,5;AU:7,3,7;NZ:8,2,8;MA:6,8,5;TN:6,8,5;SN:7,8,5;CI:6,8,5;ZA:6,5,5;AE:4,8,4`),FAM=mk(`BE:fr,LU:fr,CH:fr,DE:cen,NL:cen,AT:cen,IE:cen,GB:cen,DK:nor,SE:nor,FI:nor,NO:nor,IS:nor,EE:nor,LV:nor,LT:nor,PL:est,CZ:est,SK:est,HU:est,RO:est,BG:est,SI:est,HR:med,IT:med,ES:med,PT:med,GR:med,CY:med,MT:med,TR:tur,AE:moy,MA:mag,TN:mag,SN:afo,CI:afo,ZA:afo,IN:ind,JP:asi,KR:asi,CN:asi,TW:asi,VN:sea,TH:sea,MY:sea,SG:sea,US:nam,CA:nam,AU:nam,NZ:nam,MX:lat,BR:lat,AR:lat,CL:lat,CO:lat`),PR=mk(`fr-cen:7,fr-med:8,fr-mag:6,fr-nam:5,fr-afo:5,fr-nor:4,fr-est:4,fr-lat:4,fr-tur:4,med-mag:7,med-tur:7,med-lat:6,med-cen:5,med-est:4,tur-moy:8,tur-mag:6,moy-mag:7,asi-sea:6,ind-sea:5,ind-moy:5,cen-nor:6,cen-est:6,cen-nam:5,nam-lat:4,nor-est:4,afo-mag:5,afo-lat:4,sea-moy:3`);
+C.forEach(c=>{const y=Y[c[0]].split(',').map(Number);c[4][29]=y[0];c[4][30]=y[1];c[4][31]=y[2]});
+const sim=(a,b)=>a==b?10:+(PR[a+"-"+b]||PR[b+"-"+a]||3);
+const SEC={info:"IE NL EE FI SE DE CH PL RO ES PT LT GB US CA IN SG KR TW",meca:"DE SE CZ IT AT SK HU CH ES JP KR CN US CA MX BR TR",elec:"NL DE FI AT CH IE SE KR TW JP CN SG US MY",civ:"NL DK NO ES PT AT DE CH AE MA GB AU CA TR",ener:"NO DK SE DE FI ES PT IS NL CA US AE AU BR MA",indus:"DE CZ PL IT SK HU RO AT CN MX TR IN BR ZA MA TN"};
+const G={A:1.15,B:1,C:1.25,D:1.15};
+const SL=[["cost","Coût de la vie bas","Courses, loisirs et transports peu chers.",0,"A"],["prox","Proximité avec la France","Pouvoir rentrer en quelques heures en train ou en vol court.",1,"A"],["hous","Facilité à se loger","Location de chambres / colocation accessible aux étudiants internationaux.",2,"A"],
+["sun","Heures de lumière et de soleil","Des jours lumineux qui n'affectent pas le moral en hiver.",3,"B"],["warm","Climat tempéré/chaud","Éviter le froid extrême ou la neige prolongée.",4,"B"],["food","Affinité gastronomique","Retrouver une cuisine proche de celle de ton pays d'origine (ou de tes habitudes).",5,"B"],["night","Vie sociale et loisirs","Offre culturelle, étudiante et de loisirs active.",6,"B"],
+["safe","Sécurité au quotidien","Me sentir en sécurité en marchant seul(e), surtout la nuit.",7,"C"],["wom","Droits et égalité des femmes","Lois solides, peu de harcèlement et respect des droits reproductifs.",8,"C"],["lgbt","Inclusion LGBTQIA+","Acceptation sociale, lieux sûrs et protection juridique.",9,"C"],["stab","Stabilité politique et libertés","Pas de tensions sociales ; liberté d'expression bien établie.",10,"C"],["div","Diversité et inclusion ethno-raciale","Ouverture aux communautés internationales, peu de discrimination au quotidien.",11,"C"],
+["jobs","Marché de l'ingénierie","Beaucoup d'entreprises et d'opportunités dans mon secteur.",14,"D"],["pay","Rémunération du stage","Gratification / salaire de stage élevé.",13,"D"],["eng","Travailler en anglais","Pouvoir travailler et vivre confortablement en anglais.",12,"D"],
+["tz","Peu de décalage horaire","Un horaire proche de celui de la France pour appeler famille et amis.",21,"A"],["multi","Ville plurilingue","Que plusieurs langues et communautés cohabitent dans la ville.",22,"B"],["visa","Démarches simples","Peu de paperasse : visa, permis de travail et assurance.",23,"A"],
+["shock","Choc culturel souhaité","1 = quelque chose de familier (Europe) ; 10 = changement radical (Asie, Afrique…).",27,"B",1],["mega","Taille de ville souhaitée","1 = petite ou moyenne ville ; 10 = mégapole de plus de 10 millions d'habitants.",28,"B",1],
+["flex","Culture de travail : stricte ou souple","1 = très stricte et formelle (horaires, règles rigides) ; 10 = très souple et détendue.",29,"D",1],["hier","Hiérarchie : horizontale ou verticale","1 = horizontale (décisions partagées, relations directes) ; 10 = très verticale (chaîne de commandement claire).",30,"D",1],["wlb","Équilibre vie pro / vie perso","Horaires raisonnables, congés et temps libre respectés.",31,"D"]];
+const Q=[
+{b:"Bloc 0 · Profil",id:"orig",t:"c",q:"Quel est ton pays d'origine ou de résidence actuel ?",o:["France","Autre pays de l'UE","Hors UE"]},
+{b:"Bloc 0 · Profil",id:"ocu",t:"s",sk:()=>A.orig===0,q:()=>A.orig==1?"De quel pays de l'UE viens-tu ? (sert à comparer la cuisine)":"De quelle région du monde viens-tu ? (sert à comparer la cuisine)",o:()=>A.orig==1?C.slice(0,29).filter(c=>!"CH NO IS".includes(c[0])).map(c=>[c[0],c[2]+" "+c[1]]):[["mag","Maghreb"],["afo","Afrique subsaharienne"],["moy","Moyen-Orient / Turquie"],["asi","Asie de l'Est"],["ind","Asie du Sud"],["sea","Asie du Sud-Est"],["nam","Amérique du Nord / Océanie"],["lat","Amérique latine"],["cen","Autre pays d'Europe"]]},
+{b:"Bloc 0 · Profil",id:"lang",t:"l",q:"Quelles langues parles-tu et à quel niveau ?"},
+{b:"Bloc 0 · Profil",id:"field",t:"s",q:"Quelle est ta spécialité d'ingénieur ?",o:[["info","Informatique / Logiciel / Data"],["meca","Mécanique / Aéronautique / Automobile"],["elec","Électronique / Télécoms"],["civ","Génie civil / Construction"],["ener","Énergie / Environnement"],["indus","Génie industriel / Production"]]},
+{b:"Bloc 0 · Profil",id:"dur",t:"c",q:"Quelle est la durée de ton stage ?",o:["Moins de 2 mois","Entre 2 et 6 mois","Plus de 6 mois"]},
+{b:"Bloc 1 · Filtres éliminatoires",id:"q5",t:"y",q:"Irais-tu dans un pays dont tu ne parles PAS du tout la langue locale ?"},
+{b:"Bloc 1 · Filtres éliminatoires",id:"q6",t:"y",q:"Si l'environnement de travail est 100 % en anglais, te sentirais-tu à l'aise même si le pays n'est pas anglophone ?"},
+{b:"Bloc 1 · Filtres éliminatoires",id:"q7",t:"y",q:"Est-il obligatoire pour toi de rester dans l'espace Schengen (pour éviter les démarches de visa) ?"},
+{b:"Bloc 1 · Filtres éliminatoires",id:"q8",t:"y",q:"Pour un stage de plus de 2 mois, as-tu absolument besoin d'une gratification ou d'une bourse pour partir ?"},
+{b:"Bloc 1 · Filtres éliminatoires",id:"q9",t:"c",q:"Quel est ton budget mensuel maximum (logement et vie quotidienne compris) ?",o:["Moins de 600 €","600 – 800 €","800 – 1000 €","1000 – 1400 €","1400 – 2000 €","Plus de 2000 € / peu importe"]},
+{b:"Bloc 1 · Filtres éliminatoires",id:"d1",t:"y",q:"Écartes-tu les pays qui exigent un visa ou un permis de travail complexe ?"},
+{b:"Bloc 1 · Filtres éliminatoires",id:"d2",t:"y",q:"Écartes-tu les destinations à plus de 6 heures de vol depuis la France ?"},
+{b:"Bloc 1 · Filtres éliminatoires",id:"d3",t:"y",q:"Écartes-tu les pays avec plus de 3 heures de décalage horaire ?"},
+{b:"Bloc 2 · Cadre de vie et projet",id:"env",t:"m",q:"Quel cadre de vie te attire ?",o:["Mégapole (plus de 10 M d'habitants)","Grande capitale cosmopolite","Ville universitaire moyenne","Petite ville","Bord de mer / littoral","Campagne, nature ou montagne"]},
+{b:"Bloc 2 · Cadre de vie et projet",id:"str",t:"c",q:"Qu'est-ce qui t'inquiète le plus à l'idée de vivre à l'étranger ?",o:["La barrière de la langue","Me sentir seul(e) ou ne pas m'intégrer","L'argent et le coût de la vie","La sécurité","Le climat et le manque de lumière","Les démarches et la recherche de logement","Être loin de ma famille et de la France"]},
+{b:"Bloc 2 · Cadre de vie et projet",id:"cul",t:"m",q:"Dans quel type d'organisation veux-tu faire ton stage ?",o:["Startup","Petite entreprise familiale","PME / entreprise de taille moyenne","Grande entreprise / multinationale","Organisme public / centre de recherche / ONG"]},
+{b:"Bloc 2 · Cadre de vie et projet",id:"hs",t:"c",q:"Où aimerais-tu vivre ?",o:["Colocation","Résidence étudiante","Studio ou appartement individuel"]},
+...SL.map(s=>({b:"Bloc 3 · "+({A:"Conditions économiques et logistiques",B:"Climat, bien-être et culture",C:"Société, inclusion et droits",D:"Carrière professionnelle"})[s[4]],id:s[0],t:"r",q:s[1],h:s[2],tg:s[5]}))];
+const STR={0:[],1:[11,6],2:[0],3:[7],4:[3,4],5:[2,23],6:[1,21]};
+const A={lang:{}};let i=0;const $=document.getElementById("app");
+const LV=["Aucun","A1–A2","B1–B2","C1–C2"],LN={fr:"Français",en:"Anglais",es:"Espagnol",de:"Allemand",it:"Italien",nl:"Néerlandais",pt:"Portugais",ja:"Japonais",zh:"Chinois",ko:"Coréen",ar:"Arabe"};
+function ans(q){return q.t=="m"?(A[q.id]||[]).length>0:q.t=="l"?1:q.t=="r"?1:A[q.id]!==undefined}
+function render(){
+ if(i>=Q.length)return result();
+ const q=Q[i];let h=`<h1>🌍 Mon stage dans le monde</h1><div class="mu">Question ${i+1} sur ${Q.length}</div><div class="bar"><i style="width:${i/Q.length*100}%"></i></div><div class="card"><span class="blk">${q.b}</span><h2>${typeof q.q=="function"?q.q():q.q}</h2>`;
+ if(q.t=="y")h+=["si","no"].map(v=>`<button class="opt ${A[q.id]==v?"on":""}" onclick="set('${q.id}','${v}')">${v=="si"?"Oui":"Non"}</button>`).join("");
+ if(q.t=="c")h+=q.o.map((o,k)=>`<button class="opt ${A[q.id]===k?"on":""}" onclick="set('${q.id}',${k})">${o}</button>`).join("");
+ if(q.t=="m")h+=q.o.map((o,k)=>`<button class="opt ${(A[q.id]||[]).includes(k)?"on":""}" onclick="tg('${q.id}',${k})">${o}</button>`).join("")+`<p class="mu">Plusieurs choix possibles</p>`;
+ if(q.t=="s")h+=`<select onchange="set('${q.id}',this.value)"><option value="" disabled ${A[q.id]?"":"selected"}>Choisis une option…</option>${(typeof q.o=="function"?q.o():q.o).map(o=>`<option value="${o[0]}" ${A[q.id]==o[0]?"selected":""}>${o[1]}</option>`).join("")}</select>`;
+ if(q.t=="l")h+=Object.keys(LN).map(l=>`<div class="lg"><b>${LN[l]}</b><select onchange="A.lang['${l}']=+this.value">${LV.map((v,k)=>`<option value="${k}" ${(A.lang[l]||0)==k?"selected":""}>${v}</option>`).join("")}</select></div>`).join("");
+ if(q.t=="r"){const v=A[q.id]??5;h+=`<p class="mu">${q.h}</p><div class="big" id="v">${v}</div><input type="range" min="1" max="10" value="${v}" oninput="A['${q.id}']=+this.value;document.getElementById('v').textContent=this.value"><div class="sc">${q.tg?"<span>1 · Minimum</span><span>10 · Maximum</span>":"<span>1 · Pas important</span><span>10 · Indispensable</span>"}</div>`}
+ h+=`</div><div class="row">${i?`<button class="btn g" onclick="nx(-1)">← Retour</button>`:""}<button class="btn" ${ans(q)?"":"disabled"} onclick="nx(1)">${i==Q.length-1?"Voir les résultats":"Suivant →"}</button></div>`;
+ $.innerHTML=h}
+function nx(d){i+=d;while(Q[i]&&Q[i].sk&&Q[i].sk())i+=d;render();scrollTo(0,0)}
+function tg(k,v){const a=A[k]||[];A[k]=a.includes(v)?a.filter(x=>x!=v):a.concat(v);render()}
+function set(k,v){A[k]=v;if(k=="orig")delete A.ocu;if(k=="orig"&&v==0&&A.lang.fr===undefined)A.lang.fr=3;render()}
+function result(){
+ const dur=A.dur,sec=(SEC[A.field]||"").split(" ");
+ const P={};SL.forEach(s=>P[s[0]]=A[s[0]]??5);
+ const out=[],ok=[];
+ C.forEach(([code,name,fl,ls,m,xx])=>{
+  const known=ls.some(l=>(A.lang[l]||0)>=2);let x=null;
+  if(!known&&A.q5=="no"&&!(A.q6=="si"&&m[12]>=7))x="Tu ne parles pas la langue locale et l'anglais professionnel y est insuffisant";
+  else if(A.q7=="si"&&!SCH.includes(code))x="Hors espace Schengen";
+  else if(A.q8=="si"&&dur>0&&m[13]<4)x="Stages peu ou pas rémunérés";
+  else if(m[0]<[8,6,4,3,1,0][A.q9])x="Coût de la vie supérieur à ton budget";
+  else if(A.d1=="si"&&xx[5]==2)x="Visa ou permis de travail complexe exigé";
+  else if(A.d2=="si"&&xx[1]>6)x="À plus de 6 h de vol de la France";
+  else if(A.d3=="si"&&Math.abs(xx[0])>3)x="Décalage horaire supérieur à 3 h";
+  if(x){out.push([name,fl,x]);return}
+  const cr=SL.map(s=>{let w=P[s[0]]**2*G[s[4]],f=m[s[3]];if(s[0]=="food")f=sim(A.orig===0?"fr":(FAM[A.ocu]||A.ocu||"fr"),FAM[code]);if(s[0]=="pay")w*=.4;if(s[5])return{n:s[1],v:7,f:10-Math.abs(P[s[0]]-f),w:45*G[s[4]]};
+   if(s[0]=="jobs"&&sec.includes(code))f=Math.min(10,f+2);
+   if(s[0]=="cost"&&P.cost>=8||0)0;
+   if(s[0]=="hous"&&P.cost>=8)w*=1.3;
+   if(s[0]=="stab"&&(P.wom>=8||P.lgbt>=8))w*=1.3;
+   if(s[0]=="pay"&&dur==2)w*=1.3;
+   if(s[0]=="prox"&&dur==0)w*=1.3;
+   if((STR[A.str]||[]).includes(s[3]))w*=1.5;
+   return{n:s[1],v:P[s[0]],f,w}});
+  const ex=[];
+  if(A.env&&A.env.length)ex.push({n:"Cadre de vie",f:Math.max(...A.env.map(k=>[m[28],m[15],m[16],(10-m[28]+m[16])/2,m[17],(m[17]+10-m[28])/2][k])),w:45});
+  if(A.cul&&A.cul.length)ex.push({n:"Type d'organisation",f:Math.max(...A.cul.map(k=>[m[18],(m[18]+10-m[19])/2,(m[18]+m[19])/2,m[19],m[20]][k])),w:45});
+  if(A.hs!==undefined)ex.push({n:"Type de logement choisi",f:m[24+A.hs],w:50});
+  ex.push({n:"Aisance linguistique",f:known?10:m[12],w:A.str==0?60:20});
+  const all=cr.concat(ex.map(e=>({...e,v:e.w>=40?6:5})));
+  let S=all.reduce((a,c)=>a+c.w*c.f,0)/(10*all.reduce((a,c)=>a+c.w,0));
+  const bad=all.filter(c=>c.v>=8&&c.f<=3);if(bad.length)S*=.8;
+  if(P.prox>=8&&m[1]<5)S*=.9;
+  if(!known&&A.q6=="no")S*=.85;
+  ok.push({name,fl,S,good:all.filter(c=>c.v>=7&&c.f>=7).sort((a,b)=>b.w*b.f-a.w*a.f).slice(0,3).map(c=>c.n),bad:bad.map(c=>c.n)})});
+ ok.sort((a,b)=>b.S-a.S);const mx=ok[0]?.S||1;
+ const pc=o=>Math.round(Math.min(99,o.S/mx*100*.9+(o.S*10)));
+ let h=`<h1>🌍 Tes résultats</h1><p class="mu">${ok.length} pays compatibles · ${out.length} écartés par tes filtres</p>`;
+ if(!ok.length)h+=`<div class="card">Tes filtres éliminatoires écartent toutes les destinations. Essaie d'en assouplir un (langue, budget ou rémunération).</div>`;
+ ok.slice(0,3).forEach((o,k)=>{const p=Math.min(98,Math.round(o.S*100*1.15));h+=`<div class="card"><div class="top"><span>${["🥇","🥈","🥉"][k]} ${o.fl} ${o.name}</span><span>${p}%</span></div><div class="pc"><i style="width:${p}%"></i></div>${o.good.length?`<div class="ok">✔ Points forts :</div><ul>${o.good.map(g=>`<li>${g}</li>`).join("")}</ul>`:""}${o.bad.length?`<div class="wa">⚠ Ne respecte pas tes critères non négociables :</div><ul>${o.bad.map(g=>`<li>${g}</li>`).join("")}</ul>`:""}</div>`});
+ if(ok.length>3)h+=`<details><summary>Voir le reste du classement (${ok.length-3})</summary>${ok.slice(3).map(o=>`<div class="li"><span>${o.fl} ${o.name}</span><b>${Math.min(98,Math.round(o.S*115))}%</b></div>`).join("")}</details>`;
+ if(out.length)h+=`<details><summary>Pays écartés (${out.length})</summary>${out.map(o=>`<div class="li"><span>${o[1]} ${o[0]}</span><span class="ko" style="text-align:right;max-width:60%">${o[2]}</span></div>`).join("")}</details>`;
+ h+=`<p class="mu" style="margin-top:16px">Comment c'est calculé : 1) les filtres du Bloc 1 éliminent des pays ; 2) chaque note de 1 à 10 est élevée au carré pour que les 8–10 pèsent beaucoup plus, puis multipliée par l'importance de sa catégorie (droits et sécurité ×1,25 ; économie et carrière ×1,15) ; 3) les réponses sont reliées entre elles (ex. si le coût de la vie bas est prioritaire, le logement pèse plus ; ta principale inquiétude renforce les critères associés) ; 4) un critère non négociable (9–10) non respecté pénalise le pays. Les scores par pays sont des estimations indicatives. Vérifie toujours les conseils aux voyageurs de France Diplomatie et que ton université a une convention avec la destination.</p><div class="row"><button class="btn" onclick="i=0;render()">Refaire le test</button></div>`;
+ $.innerHTML=h}
+render();
+</script></body></html>
